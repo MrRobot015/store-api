@@ -1,0 +1,17 @@
+{
+  "name": "stoe-restapi",
+  "version": "1.0.0",
+  "description": "node restfull api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node-restApi"
+  ],
+  "author": "Mujtaba Salah",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
