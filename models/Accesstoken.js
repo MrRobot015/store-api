@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ User }) {
       // define association here
+      this.belongsTo(User, { foreignKey: 'userId', as: 'user' });
     }
     toJSON() {
       return { ...this.get(), id: undefined };
@@ -35,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      tableName: 'users',
+      tableName: 'accessTokens',
       modelName: 'AccessToken',
     }
   );

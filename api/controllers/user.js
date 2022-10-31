@@ -1,6 +1,7 @@
-const { User } = require('../../models');
+const { User, AccessToken } = require('../../models');
 const bcrypt = require('bcrypt');
 const generateNewToken = require('../utils/generateAccessToken');
+const storeAccessToken = require('../utils/storeAccessToken');
 
 exports.createUser = async (req, res, next) => {
   const { email, password } = req.body;
@@ -47,6 +48,7 @@ exports.signin = async (req, res, next) => {
       }
       if (result) {
         const token = await generateNewToken(user);
+        await storeAccessToken(token, user.id);
         return res.status(200).json({
           message: 'signin successfully',
           user,
