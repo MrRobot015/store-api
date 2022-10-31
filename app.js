@@ -4,15 +4,17 @@ const bodyParser = require('body-parser');
 // *** import routes here ***
 const productRoutes = require('./api/routes/products');
 const ordersRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/user');
 const { application } = require('express');
 //
 
 const app = express();
 
 //middleware
-app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(morgan('dev')); //log middleware
+app.use('/uploads', express.static('uploads')); //expose image files middleware
+app.use(bodyParser.urlencoded({ extended: false })); // url paramss parser middleware
+app.use(bodyParser.json()); // josn parser middleware
 
 //CORS
 app.use((req, res, next) => {
@@ -31,6 +33,7 @@ app.use((req, res, next) => {
 // Routes
 app.use('/products', productRoutes);
 app.use('/orders', ordersRoutes);
+app.use('/auth', userRoutes);
 
 // handle error
 app.use((req, res, next) => {

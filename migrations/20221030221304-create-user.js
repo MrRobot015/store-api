@@ -2,37 +2,37 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, DataTypes) {
-    await queryInterface.createTable('products', {
+    await queryInterface.createTable('users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      productId: {
+      userId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
+        allowNull: true,
         validate: {
           notEmpty: true,
+          notNull: true,
         },
       },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true,
-        },
-      },
-      productImage: {
+      email: {
         type: DataTypes.STRING,
         allowNull: true,
-      },
-      price: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
         validate: {
           notEmpty: true,
+          notNull: true,
+          isEmail: true,
+        },
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+          notEmpty: true,
+          notNull: true,
         },
       },
       createdAt: {
@@ -46,6 +46,6 @@ module.exports = {
     });
   },
   async down(queryInterface, DataTypes) {
-    await queryInterface.dropTable('products');
+    await queryInterface.dropTable('users');
   },
 };

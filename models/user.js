@@ -1,53 +1,54 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Product extends Model {
+  class User extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Order }) {
+    static associate({ AccessToken }) {
       // define association here
     }
+
     toJSON() {
-      return { ...this.get(), id: undefined };
+      return { ...this.get(), id: undefined, password: undefined };
     }
   }
-  Product.init(
+  User.init(
     {
-      productId: {
+      userId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         validate: {
           notEmpty: true,
+          notNull: true,
         },
       },
-      name: {
+      email: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notEmpty: true,
+          notNull: true,
+          isEmail: true,
         },
       },
-      productImage: {
+      password: {
         type: DataTypes.STRING,
-        allowNull: true,
-      },
-      price: {
-        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notEmpty: true,
+          notNull: true,
         },
       },
     },
     {
       sequelize,
-      tableName: 'products',
-      modelName: 'Product',
+      tableName: 'users',
+      modelName: 'User',
     }
   );
-  return Product;
+  return User;
 };
