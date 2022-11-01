@@ -32,6 +32,39 @@ exports.createUser = async (req, res, next) => {
   });
 };
 
+exports.createSupportUser = async (req, res, next) => {
+  const userRole = req.userData.role;
+  if (userRole === 'admin') {
+    const { email, password } = req.body;
+    const userCheck = await User.findOne({ where: { email: email } });
+    if (userCheck) {
+      return res.status(409).json({
+        message: 'This email already exists',
+      });
+    }
+
+    await bcrypt.hash(password, 10, async (err, hash) => {
+      if (err) {
+        res.status(500).json({ message: err.message });
+      } else {
+        try {
+          const user = await User.create({
+            email: email,
+            password: hash,
+            role: 'support',
+          });
+          await createProfile(user.id);
+          res.status(200).json({ message: 'user created successfully' });
+        } catch (err) {
+          return res.status(500).json({ message: err.message });
+        }
+      }
+    });
+  } else {
+    res.status(401).json({ message: "you're  unauthorized to do this action" });
+  }
+};
+
 exports.signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
@@ -94,7 +127,7 @@ exports.updateProfile = async (req, res, next) => {
 
 exports.deleteUser = async (req, res, next) => {
   const userRole = req.userData.role;
-  if (userRole === 'admin' || userRole === 'supervisor') {
+  if (userRole === 'admin' || userRole === 'support') {
     const userId = req.params.id;
     const userCheck = await User.findOne({ where: { userId } });
     if (!userCheck) {

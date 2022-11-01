@@ -10,7 +10,7 @@ exports.getAllProducts = async (req, res, next) => {
 };
 exports.createProduct = async (req, res, next) => {
   const userRole = req.userData.role;
-  if (userRole === 'admin' || userRole === 'supervisor') {
+  if (userRole === 'admin' || userRole === 'support') {
     const { name, price } = req.body;
     const productImage = req.file.path;
     try {
@@ -37,7 +37,7 @@ exports.getProductById = async (req, res, next) => {
 
 exports.updateProduct = async (req, res, next) => {
   const userRole = req.userData.role;
-  if (userRole === 'admin' || userRole === 'supervisor') {
+  if (userRole === 'admin' || userRole === 'support') {
     const productId = req.params.id;
     const { name, price } = req.body;
     try {
@@ -55,7 +55,7 @@ exports.updateProduct = async (req, res, next) => {
 };
 exports.deleteProduct = async (req, res, next) => {
   const userRole = req.userData.role;
-  if (userRole === 'admin' || userRole === 'supervisor') {
+  if (userRole === 'admin' || userRole === 'support') {
     const productId = req.params.id;
     try {
       const product = await Product.findOne({ where: { productId } });
