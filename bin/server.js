@@ -1,7 +1,7 @@
 const logger = require('console').log;
 const http = require('http');
 const app = require('./app');
-const { sequelize } = require('./models');
+const { sequelize } = require('../models');
 
 const port = process.env.PORT || 3008;
 

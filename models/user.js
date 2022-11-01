@@ -43,6 +43,14 @@ module.exports = (sequelize, DataTypes) => {
           notNull: true,
         },
       },
+      role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          notNull: true,
+        },
+      },
     },
     {
       sequelize,

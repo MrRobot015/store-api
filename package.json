@@ -2,7 +2,7 @@
   "name": "stoe-restapi",
   "version": "1.0.0",
   "description": "node restfull api",
-  "main": "server.js",
+  "main": "bin/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
