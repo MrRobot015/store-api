@@ -2,9 +2,9 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 // *** import routes here ***
-const productRoutes = require('../api/routes/products');
-const ordersRoutes = require('../api/routes/orders');
-const userRoutes = require('../api/routes/users');
+const productRoutes = require('../src/routes/products');
+const ordersRoutes = require('../src/routes/orders');
+const userRoutes = require('../src/routes/users');
 const { application } = require('express');
 //
 
